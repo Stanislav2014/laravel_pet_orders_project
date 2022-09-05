@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'pgsql_write'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,17 +63,41 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
+        'pgsql_write' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_WRITE_HOST', '127.0.0.1'),
+            'port' => env('DB_WRITE_PORT', '5432'),
+            'database' => env('DB_WRITE_DATABASE', 'forge'),
+            'username' => env('DB_WRITE_USERNAME', 'forge'),
+            'password' => env('DB_WRITE_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'prefix_indexes' => true,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'pgsql_read' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_READ_HOST', '127.0.0.1'),
+            'port' => env('DB_READ_PORT', '5432'),
+            'database' => env('DB_READ_DATABASE', 'forge'),
+            'username' => env('DB_READ_USERNAME', 'forge'),
+            'password' => env('DB_READ_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'pgsql_testing' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_READ_HOST', '127.0.0.1'),
+            'port' => env('DB_READ_PORT', '5432'),
+            'database' => env('DB_WRITE_TEST_DATABASE', 'forge'),
+            'username' => env('DB_WRITE_TEST_USERNAME', 'forge'),
+            'password' => env('DB_WRITE_TEST_PASSWORD', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],

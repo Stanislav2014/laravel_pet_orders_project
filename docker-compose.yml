@@ -1,0 +1,84 @@
+version: "3.9"
+
+volumes:
+  courier-plus-db:
+  memcached:
+
+networks:
+  default:
+    name: whitenetwork
+    external: true
+
+services:
+  php-fpm:
+    build: docker/php-fpm
+    container_name: courier-plus-php
+    working_dir: /srv/courier-plus
+    restart: unless-stopped
+    volumes:
+      - ./:/srv/courier-plus
+      - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+    depends_on:
+      - memcached
+  nginx:
+    image: nginx:alpine
+    container_name: courier-plus-nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/srv/courier-plus
+      - ./docker/nginx:/etc/nginx/conf.d/
+    networks:
+      default:
+        aliases:
+          - "${BASE_DOMAIN}"
+          - "test.${BASE_DOMAIN}"
+          - "courier-plus.${BASE_DOMAIN}"
+    depends_on:
+      - php-fpm
+      - echo
+  db:
+    image: postgres:11.14-alpine
+    container_name: courier-plus-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_WRITE_DATABASE}
+      - POSTGRES_USER=${DB_WRITE_USERNAME}
+      - POSTGRES_PASSWORD=${DB_WRITE_PASSWORD}
+    ports:
+      - 54325:5432
+    volumes:
+      - courier-plus-db:/var/lib/postgresql/data
+  echo:
+    container_name: courier-plus-echo
+    build:
+      context: ./
+      dockerfile: ./docker/echo/Dockerfile
+    volumes:
+      - ./:/srv/courier-plus
+    tty: true
+    environment:
+      - "REDIS_PORT=${REDIS_PORT}"
+      - "REDIS_HOST=${REDIS_HOST}"
+    depends_on:
+      - redis
+  redis:
+    image: redis:6.2-alpine
+    container_name: courier-plus-redis
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    restart: always
+  nodejs12:
+    container_name: courier-plus-nodejs12
+    build:
+      context: ./docker/nodejs
+    restart: unless-stopped
+    volumes:
+      - ./:/srv/courier-plus
+  memcached:
+    container_name: courier-plus-memcached
+    image: memcached:latest
+    restart: unless-stopped
+    volumes:
+      - ./:/srv/courier-plus

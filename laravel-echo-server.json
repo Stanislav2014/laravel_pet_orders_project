@@ -1,0 +1,36 @@
+{
+	"authHost": [".erp.test", ".quant.test", ".rsuquant.ru", ".erp.myenvy.ru", ".quant.testserver.myenvy.ru"],
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [
+		{
+			"appId": "c16a47551de09c05",
+			"key": "64d2ac0f858dbaa8863ee9f400e35bc6"
+		}
+	],
+	"database": "redis",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": true,
+	"host": null,
+	"port": "",
+	"protocol": "http",
+	"socketio": {},
+	"sslCertPath": "",
+	"sslKeyPath": "",
+	"sslCertChainPath": "",
+	"sslPassphrase": "",
+	"subscribers": {
+		"http": true,
+		"redis": true
+	},
+	"apiOriginAllow": {
+		"allowCors": false,
+		"allowOrigin": "https://erp.test",
+		"allowMethods": "POST",
+		"allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
+	}
+}
