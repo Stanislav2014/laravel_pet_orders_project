@@ -30,8 +30,8 @@ RUN apt-get install -y --no-install-recommends  zlib1g-dev \
     && pecl install memcached-3.1.5 \
     && docker-php-ext-enable memcached \
 
-ADD . /srv/courier-plus
-RUN chown -R www-data:www-data /srv/courier-plus
+#ADD . /srv/courier-plus
+#RUN chown -R www-data:www-data /srv/courier-plus
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

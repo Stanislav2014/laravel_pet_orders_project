@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-WORKDIR /srv/quant
+WORKDIR /srv/courier-plus
 
 
 RUN npm i -g @raftx24/laravel-echo-server
