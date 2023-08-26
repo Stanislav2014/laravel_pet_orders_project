@@ -7,12 +7,22 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --productionч",
+        "eslint-webpack": "node node_modules/eslint/bin/eslint.js resources/assets/app/js --ext .js,.vue"
+    },
+    "dependencies": {
+        "axios": "^1.2.0",
+        "eslint": "^8.28.0",
+        "laravel-echo": "^1.14.2",
+        "vue": "^3.2.45"
     },
     "devDependencies": {
-        "axios": "^0.21",
+        "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.56.1",
+        "sass-loader": "^12.6.0"
     }
 }

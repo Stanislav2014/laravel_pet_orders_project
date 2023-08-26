@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'url_static' => env('APP_URL_STATIC', ''),//адрес CDN
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -174,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\LoadServiceProvider::class,
 
     ],
 
